@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Campus Customs — Resolved Board</title>
+<style>
+  :root {
+    --yale: #00356b;
+    --yale-deep: #002548;
+    --gold: #d9b35c;
+    --ink: #17202b;
+    --ink-soft: #4c5a69;
+    --ink-faint: #8b95a0;
+    --paper: #ffffff;
+    --rule: #e3e7ec;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background:
+      radial-gradient(1000px 440px at 50% -5%, #0c4784 0%, transparent 62%),
+      linear-gradient(175deg, #00224a 0%, #00356b 48%, #012a56 100%);
+    background-attachment: fixed;
+    color: var(--ink);
+    font: 15px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 44px 22px 80px; }
+
+  header { text-align: center; margin-bottom: 32px; }
+  .crest {
+    width: 50px; height: 56px; margin: 0 auto 14px;
+    background: linear-gradient(170deg, var(--gold), #b9923f);
+    border-radius: 6px 6px 26px 26px;
+    display: grid; place-items: center;
+    color: var(--yale-deep); font: 800 18px Georgia, serif;
+    box-shadow: inset 0 -3px 8px rgba(0,0,0,.2);
+  }
+  h1 {
+    margin: 0 0 6px; color: #fff; font: 700 26px/1.25 Georgia, "Times New Roman", serif;
+    letter-spacing: -.01em;
+  }
+  .sub { margin: 0; color: rgba(255,255,255,.62); font-size: 14px; }
+
+  .summary {
+    display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+    margin: 22px 0 36px;
+  }
+  .stat {
+    background: rgba(255,255,255,.09); border: 1px solid rgba(255,255,255,.18);
+    border-radius: 10px; padding: 11px 18px; min-width: 150px; text-align: center;
+  }
+  .stat .k {
+    font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+    color: rgba(255,255,255,.5);
+  }
+  .stat .v {
+    font: 700 19px/1.3 Georgia, serif; color: #fff; font-variant-numeric: tabular-nums;
+  }
+  .stat.money .v { color: var(--gold); }
+
+  .shot {
+    background: var(--paper); border-radius: 14px; overflow: hidden;
+    margin-bottom: 30px; box-shadow: 0 16px 40px rgba(0,0,0,.34);
+  }
+  .shot-head {
+    padding: 16px 22px; border-bottom: 1px solid var(--rule);
+    display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+  }
+  .shot-head h2 {
+    margin: 0; font: 700 17px Georgia, serif; color: var(--yale-deep);
+  }
+  .badge {
+    font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+    padding: 3px 9px; border-radius: 20px; background: #cfeccb; color: #2d6b28;
+  }
+  .cash-chip {
+    margin-left: auto; font: 650 13px ui-monospace, Menlo, monospace;
+    background: #f1f5fa; color: var(--yale); padding: 3px 10px; border-radius: 6px;
+    white-space: nowrap;
+  }
+  .shot-note { padding: 13px 22px 0; font-size: 13.5px; color: var(--ink-soft); }
+  .shot img {
+    display: block; width: 100%; height: auto; margin-top: 13px;
+    border-top: 1px solid var(--rule);
+  }
+  .shot-foot {
+    padding: 11px 22px; font-size: 11.5px; color: var(--ink-faint);
+    border-top: 1px solid var(--rule); background: #fafbfc;
+  }
+  code {
+    font: 500 12.5px ui-monospace, SFMono-Regular, Menlo, monospace;
+    background: #eef2f7; color: #0a4d91; padding: 1px 5px; border-radius: 4px;
+  }
+  footer {
+    margin-top: 10px; text-align: center; color: rgba(255,255,255,.45); font-size: 12.5px;
+  }
+  footer code { background: rgba(255,255,255,.1); color: rgba(255,255,255,.72); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="crest">CC</div>
+    <h1>Campus Customs — Resolved Board</h1>
+    <p class="sub">
+      Screenshots of the running React dashboard, captured as each ticket was resolved.
+      Shop working date 2026-08-31.
+    </p>
+  </header>
+
+  <div class="summary">
+    <div class="stat"><div class="k">Tickets resolved</div><div class="v">3 / 3</div></div>
+    <div class="stat money"><div class="k">Opening cash</div><div class="v">$3,400.00</div></div>
+    <div class="stat money"><div class="k">Paid out</div><div class="v">$3,248.00</div></div>
+    <div class="stat money"><div class="k">Closing cash</div><div class="v">$152.00</div></div>
+  </div>
+
+  <div class="shot">
+    <div class="shot-head">
+      <h2>Ticket 101 — Bulldog tee</h2>
+      <span class="badge">Resolved</span>
+      <span class="cash-chip">−$848.00 → $2,552.00</span>
+    </div>
+    <p class="shot-note">
+      Invoice 501 ($840.00) paid, which cleared Bulldog Print Co to ship, plus a $8.00 restock of one
+      CC-TEE-WHITE size S. Both approved by Shop Owner. The customer draft to Tauhid Zaman sits unsent
+      on the board. Ticket 101 shows <strong>Resolved</strong> while 102 and 103 are still open.
+    </p>
+    <img src="screens/ticket_101.jpg" alt="The dashboard with ticket 101 resolved and the checking balance at $2,552.00">
+    <div class="shot-foot">screens/ticket_101.jpg · checking reads $2,552.00</div>
+  </div>
+
+  <div class="shot">
+    <div class="shot-head">
+      <h2>Ticket 102 — Rent due</h2>
+      <span class="badge">Resolved</span>
+      <span class="cash-chip">−$2,400.00 → $152.00</span>
+    </div>
+    <p class="shot-note">
+      Lease 1 rent of $2,400.00, due 2026-09-02, verified against the lease record rather than the
+      landlord's email, approved by Shop Owner and paid. The drawer drops to $152.00. Tickets 101 and
+      102 both show <strong>Resolved</strong>; 103 is still open.
+    </p>
+    <img src="screens/ticket_102.jpg" alt="The dashboard with tickets 101 and 102 resolved and the checking balance at $152.00">
+    <div class="shot-foot">screens/ticket_102.jpg · checking reads $152.00</div>
+  </div>
+
+  <div class="shot">
+    <div class="shot-head">
+      <h2>Ticket 103 — Bulk hoodie discount</h2>
+      <span class="badge">Resolved</span>
+      <span class="cash-chip">$0.00 → $152.00</span>
+    </div>
+    <p class="shot-note">
+      Quoted at $50.00 a hoodie, $1,000.00 for twenty — above the $22.00 cost floor, leaving $28.00
+      margin a unit. Eight ship from stock; the other twelve need a $264.00 restock the shop cannot
+      afford against $152.00, so that request was never approved and no cash moved. All three tickets
+      now show <strong>Resolved</strong>.
+    </p>
+    <img src="screens/ticket_103.jpg" alt="The dashboard with all three tickets resolved and the checking balance at $152.00">
+    <div class="shot-foot">screens/ticket_103.jpg · checking reads $152.00</div>
+  </div>
+
+  <footer>
+    Captured from the live dashboard at <code>localhost:5173</code> against the backend at
+    <code>localhost:8000</code>. Images are linked with relative paths, so this page works on
+    double-click as long as <code>screens/</code> sits beside it.
+  </footer>
+
+</div>
+</body>
+</html>

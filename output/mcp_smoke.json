@@ -1,0 +1,66 @@
+{
+  "server": "campus-customs",
+  "config_file": "mcp.json",
+  "transport": "stdio",
+  "database": "data/campus_customs_new.db",
+  "run_at": "2026-10-10T15:07:52-04:00",
+  "verified_via": "in-session Claude Code MCP connection (campus-customs loaded from HW 5/.mcp.json)",
+  "verified_at": "2026-10-10T15:28:00-04:00",
+  "tools_exposed": [
+    "check_stock",
+    "get_lease_terms",
+    "get_margin"
+  ],
+  "smoke_tests": [
+    {
+      "ticket": "101 - customer_order (Tauhid Zaman, 'Bulldog tee')",
+      "prompt": "Ticket 101 wants 1 Classic Bulldog Tee, SKU CC-TEE-WHITE, size S. Use the campus-customs MCP server to check how many we have on hand.",
+      "tool": "check_stock",
+      "arguments": {
+        "sku": "CC-TEE-WHITE",
+        "size": "S"
+      },
+      "output": {
+        "found": true,
+        "sku": "CC-TEE-WHITE",
+        "name": "Classic Bulldog Tee",
+        "size": "S",
+        "qty": 0,
+        "location": "Aisle B"
+      }
+    },
+    {
+      "ticket": "102 - rent_notice (Elm City Properties, 'Rent due')",
+      "prompt": "Ticket 102 is a rent notice on lease_id 1. Use the campus-customs MCP server to look up the rent amount and the next due date for that lease.",
+      "tool": "get_lease_terms",
+      "arguments": {
+        "lease_id": 1
+      },
+      "output": {
+        "found": true,
+        "id": 1,
+        "space_name": "Chapel Street shop",
+        "landlord": "Elm City Properties",
+        "monthly_rent": 2400.0,
+        "next_due": "2026-09-02",
+        "notes": null
+      }
+    },
+    {
+      "ticket": "103 - price_override (Yale AI Club, 'Bulk hoodie discount')",
+      "prompt": "Ticket 103 asks for a bulk discount on 20 hoodies, SKU CC-HOOD-NAVY, size M. Use the campus-customs MCP server to get the unit cost, list price, and margin for that SKU.",
+      "tool": "get_margin",
+      "arguments": {
+        "sku": "CC-HOOD-NAVY"
+      },
+      "output": {
+        "found": true,
+        "sku": "CC-HOOD-NAVY",
+        "unit_cost": 22.0,
+        "list_price": 58.0,
+        "margin_per_unit": 36.0,
+        "margin_pct": 62.1
+      }
+    }
+  ]
+}

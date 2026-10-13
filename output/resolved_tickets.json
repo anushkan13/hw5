@@ -1,0 +1,349 @@
+{
+  "run": {
+    "label": "Problem 9 canonical run",
+    "shop_working_date": "2026-08-31",
+    "database": "data/campus_customs_new.db",
+    "model": "gpt-6-luna",
+    "starting_checking_balance": 3400.0,
+    "ending_checking_balance": 152.0,
+    "total_paid": 3248.0,
+    "audit_trail": "output/audit_trail.json (appended; earlier history preserved)"
+  },
+  "tickets": [
+    {
+      "id": 101,
+      "subject": "Bulldog tee",
+      "requester": "Tauhid Zaman",
+      "final_status": "resolved",
+      "outcome": "Resolved. Overdue invoice 501 ($840.00) was approved by a human and paid, which flipped it to 'paid' and cleared Bulldog Print Co to ship. A 1-unit restock of CC-TEE-WHITE size S was approved and paid at $8.00. The customer was written to with a conditional 2026-09-05 ETA. Cash out on this ticket: $848.00. Only physical delivery remains, and the shop's working date is fixed at 2026-08-31, so the agents would not call it delivered \u2014 closing the ticket was a human decision.",
+      "cash_change": -848.0,
+      "balance_after": 2552.0,
+      "agent_runs": [
+        "run-20261011T195216-1eedf6",
+        "run-20261011T195350-faca89",
+        "run-20261011T195522-e2a51c",
+        "run-20261011T195618-d5c459"
+      ],
+      "agents": {
+        "boss": {
+          "contribution": "Read the ticket, sent it to Inventory first, then to Customer Service, and made the final call to close it once the invoice was paid, the restock was funded and the customer had been written to.",
+          "tools_used": [
+            "get_cash_balance",
+            "get_today",
+            "get_ticket",
+            "list_prepared_requests",
+            "check_stock",
+            "get_invoice",
+            "get_vendor",
+            "list_vendor_invoices",
+            "update_ticket"
+          ],
+          "involved": true
+        },
+        "inventory": {
+          "contribution": "Found CC-TEE-WHITE size S at qty 0 against a request for 1, identified Bulldog Print Co (apparel reprint, 5-day lead) as the restock path, discovered the vendor was blocked by unpaid invoice 501 and handed that to Accounting, then prepared restock request #2 for 1 unit at $8.00.",
+          "tools_used": [
+            "get_today",
+            "get_ticket",
+            "check_stock",
+            "find_vendors",
+            "list_prepared_requests",
+            "get_vendor",
+            "list_vendor_invoices",
+            "get_margin",
+            "prepare_purchase_request",
+            "update_ticket",
+            "get_invoice"
+          ],
+          "involved": true
+        },
+        "accounting": {
+          "contribution": "Confirmed invoice 501 at $840.00, due 2026-08-28 and overdue against the shop date, checked the $3,400.00 balance covered it, and prepared invoice-payment request #1 for a human. It did not pay.",
+          "tools_used": [
+            "get_today",
+            "get_cash_balance",
+            "list_vendor_invoices",
+            "get_invoice",
+            "list_prepared_requests",
+            "list_approvals",
+            "get_ticket",
+            "find_vendors",
+            "prepare_purchase_request"
+          ],
+          "involved": true
+        },
+        "facilities": {
+          "contribution": "Not involved \u2014 no lease or space question on this ticket.",
+          "tools_used": [],
+          "involved": false
+        },
+        "customer_service": {
+          "contribution": "Drafted and recorded the note to Tauhid Zaman: the size S tee is temporarily out of stock, with a conditional 2026-09-05 estimate from the vendor's five-day lead. The draft was never sent.",
+          "tools_used": [
+            "get_ticket",
+            "get_today",
+            "find_vendors",
+            "check_stock",
+            "get_vendor",
+            "list_vendor_invoices",
+            "record_customer_message"
+          ],
+          "involved": true
+        }
+      },
+      "human_approvals": [
+        {
+          "approved_by": "Shop Owner",
+          "what": "invoice",
+          "ref_id": 501,
+          "amount": 840.0
+        },
+        {
+          "approved_by": "Shop Owner",
+          "what": "restock_po",
+          "ref_id": null,
+          "amount": 8.0
+        }
+      ],
+      "prepared_requests": [
+        {
+          "request_id": 1,
+          "kind": "invoice_payment",
+          "amount": 840.0,
+          "status": "approved_and_paid"
+        },
+        {
+          "request_id": 2,
+          "kind": "restock_po",
+          "amount": 8.0,
+          "status": "approved_and_paid"
+        }
+      ],
+      "message_drafts": [
+        {
+          "draft_id": 1,
+          "to": "Tauhid Zaman",
+          "subject": "Update on your size S tee",
+          "status": "draft"
+        }
+      ]
+    },
+    {
+      "id": 102,
+      "subject": "Rent due",
+      "requester": "Elm City Properties",
+      "final_status": "resolved",
+      "outcome": "Resolved. Lease 1 rent of $2,400.00, due 2026-09-02, was verified against the lease record rather than the landlord's email, approved by a human and paid. Cash out on this ticket: $2,400.00, taking checking from $2,552.00 to $152.00.",
+      "cash_change": -2400.0,
+      "balance_after": 152.0,
+      "agent_runs": [
+        "run-20261011T195706-157bb9",
+        "run-20261011T195752-63886c",
+        "run-20261011T195826-278c5b"
+      ],
+      "agents": {
+        "boss": {
+          "contribution": "Sent the ticket straight to Facilities, then closed it once the rent had been approved and paid, recording the amount, the due date and the remaining balance.",
+          "tools_used": [
+            "get_today",
+            "get_cash_balance",
+            "get_ticket",
+            "update_ticket",
+            "get_lease_terms",
+            "list_prepared_requests",
+            "list_approvals",
+            "list_payments"
+          ],
+          "involved": true
+        },
+        "inventory": {
+          "contribution": "Not involved \u2014 nothing here touches stock.",
+          "tools_used": [],
+          "involved": false
+        },
+        "accounting": {
+          "contribution": "Not involved on this ticket. Facilities holds the same cash-reading and request-preparing tools and did both itself, so the handoff Expected predicted never happened.",
+          "tools_used": [],
+          "involved": false
+        },
+        "facilities": {
+          "contribution": "Checked lease 1 rather than trusting the landlord's email, confirming $2,400.00 due 2026-09-02, read the $2,552.00 balance, and prepared rent-payment request #3 for a human. It did not pay.",
+          "tools_used": [
+            "get_ticket",
+            "get_lease_terms",
+            "get_today",
+            "get_cash_balance",
+            "prepare_purchase_request",
+            "list_prepared_requests"
+          ],
+          "involved": true
+        },
+        "customer_service": {
+          "contribution": "Not involved \u2014 the landlord is not a customer to draft to.",
+          "tools_used": [],
+          "involved": false
+        }
+      },
+      "human_approvals": [
+        {
+          "approved_by": "Shop Owner",
+          "what": "rent",
+          "ref_id": 1,
+          "amount": 2400.0
+        }
+      ],
+      "prepared_requests": [
+        {
+          "request_id": 3,
+          "kind": "rent_payment",
+          "amount": 2400.0,
+          "status": "approved_and_paid"
+        }
+      ],
+      "message_drafts": []
+    },
+    {
+      "id": 103,
+      "subject": "Bulk hoodie discount",
+      "requester": "Yale AI Club",
+      "final_status": "resolved",
+      "outcome": "Resolved on the pricing question, with one thing deliberately left unfunded. The bulk quote is $50.00 a hoodie, $1,000.00 for 20, which clears the $22.00 cost floor with $28.00 margin a unit. Eight are on the shelf; the other twelve need restock request #4 at $264.00, and the drawer held only $152.00 \u2014 $112.00 short. That request was never approved and still reads 'awaiting_approval'. No cash moved on this ticket.",
+      "cash_change": 0.0,
+      "balance_after": 152.0,
+      "agent_runs": [
+        "run-20261011T195900-24e409",
+        "run-20261011T195953-671771"
+      ],
+      "agents": {
+        "boss": {
+          "contribution": "Ran the ticket twice. The first run stalled because no target price had been named; in the second it took the pricing decision itself, set the quote at $50.00 a hoodie, fanned the work out to Accounting, Inventory and Customer Service, and closed the ticket recording the plan and the cash shortfall.",
+          "tools_used": [
+            "get_today",
+            "get_cash_balance",
+            "get_ticket",
+            "update_ticket",
+            "get_margin",
+            "check_stock",
+            "find_vendors",
+            "list_open_tickets",
+            "list_approvals",
+            "list_prepared_requests",
+            "list_message_drafts",
+            "get_vendor"
+          ],
+          "involved": true
+        },
+        "inventory": {
+          "contribution": "Found 8 of CC-HOOD-NAVY size M against 20 requested, short 12, confirmed Bulldog Print Co was now clear of open invoices, and prepared restock request #4 for 12 units at $22.00 = $264.00.",
+          "tools_used": [
+            "get_today",
+            "get_ticket",
+            "check_stock",
+            "find_vendors",
+            "get_margin",
+            "list_prepared_requests",
+            "get_vendor",
+            "list_vendor_invoices",
+            "prepare_purchase_request",
+            "update_ticket"
+          ],
+          "involved": true
+        },
+        "accounting": {
+          "contribution": "Read unit cost $22.00 and list $58.00 ($36.00 margin, 62.1%), refused to quote below cost, and backed the $50.00 bulk price \u2014 $28.00 margin a unit, $560.00 across the 20.",
+          "tools_used": [
+            "get_ticket",
+            "get_margin"
+          ],
+          "involved": true
+        },
+        "facilities": {
+          "contribution": "Not involved \u2014 no lease question on this ticket.",
+          "tools_used": [],
+          "involved": false
+        },
+        "customer_service": {
+          "contribution": "Recorded two drafts to Yale AI Club with the $50.00 price, the $1,000.00 total, eight available now and twelve on restock with a conditional 2026-09-05 date. Neither was sent.",
+          "tools_used": [
+            "get_ticket",
+            "get_today",
+            "get_vendor",
+            "check_stock",
+            "get_margin",
+            "find_vendors",
+            "record_customer_message"
+          ],
+          "involved": true
+        }
+      },
+      "human_approvals": [],
+      "prepared_requests": [
+        {
+          "request_id": 4,
+          "kind": "restock_po",
+          "amount": 264.0,
+          "status": "awaiting_approval"
+        }
+      ],
+      "message_drafts": [
+        {
+          "draft_id": 2,
+          "to": "Yale AI Club",
+          "subject": "Quote for 20 navy hoodies, size M",
+          "status": "draft"
+        },
+        {
+          "draft_id": 3,
+          "to": "Yale AI Club",
+          "subject": "Bulk hoodie quote and availability",
+          "status": "draft"
+        }
+      ]
+    }
+  ],
+  "human_approvals": [
+    {
+      "payment_id": 1,
+      "approved_by": "Shop Owner",
+      "kind": "invoice",
+      "ref_id": 501,
+      "amount": 840.0,
+      "account": "checking",
+      "paid_at": "2026-10-11T19:53:02-04:00",
+      "ticket_id": 101
+    },
+    {
+      "payment_id": 2,
+      "approved_by": "Shop Owner",
+      "kind": "restock_po",
+      "ref_id": null,
+      "amount": 8.0,
+      "account": "checking",
+      "paid_at": "2026-10-11T19:53:34-04:00",
+      "ticket_id": 101
+    },
+    {
+      "payment_id": 3,
+      "approved_by": "Shop Owner",
+      "kind": "rent",
+      "ref_id": 1,
+      "amount": 2400.0,
+      "account": "checking",
+      "paid_at": "2026-10-11T19:57:35-04:00",
+      "ticket_id": 102
+    }
+  ],
+  "not_approved": [
+    {
+      "request_id": 4,
+      "kind": "restock_po",
+      "ticket_id": 103,
+      "amount": 264.0,
+      "qty": 12,
+      "sku": "CC-HOOD-NAVY",
+      "size": "M",
+      "status": "awaiting_approval",
+      "why": "Costs $264.00 against a $152.00 balance \u2014 $112.00 short. make_payment would refuse it, because balances never go negative."
+    }
+  ]
+}

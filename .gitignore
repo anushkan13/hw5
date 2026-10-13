@@ -1,0 +1,26 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Secrets — never commit a real key. .env.example is committed instead.
+.env
+.env.local
+
+# Local editor / tooling state
+.claude/
+.DS_Store
+.idea/
+.vscode/
+
+# Frontend
+node_modules/
+frontend/dist/
+frontend/node_modules/
+
+# Scratch
+*.tmp
+output/*.corrupt-*.json
+
+# The two SQLite files under data/ ARE committed on purpose, so a grader can run
+# the project without rebuilding the data. Nothing here may exclude them.
