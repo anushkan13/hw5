@@ -1,6 +1,15 @@
-fastmcp
-openai
-python-dotenv
-pydantic-ai
-fastapi
-uvicorn
+# Pinned to the versions this project was built and verified against.
+# A fresh clone installing unpinned versions pulls a newer `cryptography` that
+# has no wheel for every platform and tries to build from Rust source, which
+# fails. These pins are what make `pip install -r requirements.txt` work on a
+# clean machine.
+
+fastmcp==4.1.0
+pydantic-ai==2.55.0
+openai==3.28.0
+python-dotenv==1.2.4
+fastapi==0.143.0
+uvicorn==0.54.0
+
+# Transitive, pinned deliberately — see the note above.
+cryptography==48.0.1

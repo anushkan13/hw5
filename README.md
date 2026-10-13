@@ -80,8 +80,14 @@ cd hw5
 
 ```bash
 python3 -m venv .venv
+.venv/bin/pip install --upgrade pip
 .venv/bin/pip install -r requirements.txt
 ```
+
+`requirements.txt` is pinned to the versions this project was verified against.
+That matters: installing unpinned pulls a newer `cryptography` that has no
+prebuilt wheel on some platforms and tries to build from Rust source, which
+fails. The pins avoid that.
 
 Everything below calls `.venv/bin/python` directly, so there is no need to
 activate the virtualenv.
