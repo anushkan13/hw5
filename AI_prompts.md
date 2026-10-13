@@ -400,3 +400,27 @@ Stopped both dev servers — `uvicorn` on port 8000 and the Vite server on 5173 
 **Confirmed against the remote tree, not just the local one:** no `.env` anywhere in the repo, `.env.example` present, no `.claude/` files, and both `data/campus_customs.db` (53,248 bytes) and `data/campus_customs_new.db` (73,728 bytes) published.
 
 **Two deviations from the screenshot, both deliberate.** The screenshot is abbreviated — it shows `frontend/` with no children at all — so it was treated as the intended top-level organisation rather than an exhaustive file list. The repo additionally contains the files the project cannot run without (`backend/team.py`, `shop.py`, `audit.py`, `run_team.py`, `mcp_server/approve_cli.py`, `mcp.json` alongside `.mcp.json`, and `output/screens/` which `resolved_board.html` links to). `output/day_plan.json`, a stale artifact from Problem 5 that is not in the screenshot, was untracked but left on disk.
+
+---
+
+## Problem 11: Submit to GitHub
+
+### Prompt 1 (initial)
+
+> Problem 11: Submit to GitHub
+>
+> Push the code from this assignment to a public GitHub repository so that graders can clone it. Do NOT push the real .env to the GitHub repo. DO include both of the database files under data/ (original AND working copy) so that graders can copy the app easily.
+>
+> The attached image outlines the expected filetree - copy it exactly, do not include additional files or omit required files without first prompting me.
+>
+> Things to keep in mind: README should explain - copy original DB to working copy when a clean run is needed, start MCP server, start FastAPI backend, start the React board, reset the DB before a full three-ticket run.
+
+**Outcome:** Pushed to **https://github.com/anushkan13/hw5** (public). A grader can clone and run it.
+
+**Prompted before deviating from the filetree, as asked.** The attached tree omitted nine files that the code imports or links, so matching it exactly would have produced a repo that cannot start: `mcp.json` (read by `shop.py` and `team.py`), `mcp_server/approve_cli.py` (imported by `main.py` for `record_approval`), `backend/team.py`, `backend/audit.py`, `backend/shop.py` and `backend/run_team.py` (the agents, the audit trail and the MCP client), and the three `output/screens/*.jpg` that `resolved_board.html` links relatively. The user chose to include them. The user also decided that `output/day_plan.json`, a leftover from earlier testing, stays out because it is not in the filetree; it is now gitignored rather than committed.
+
+**Caught a broken working tree before pushing.** `backend/shop.py` and `backend/team.py` on disk were older than the committed versions and had lost two clone-portability fixes — `_resolve()`, which turns `mcp.json`'s project-relative paths absolute so the server can be spawned from `backend/`, and the `.env` lookup that prefers a key inside the project. Since `mcp.json` stores relative paths, committing the working-tree copies would have shipped a repo that fails with `No such file or directory: '.venv/bin/python'`. Confirmed that failure directly, then restored both files from `HEAD` and confirmed the MCP connection works again.
+
+**Verified by actually cloning it rather than trusting the push:** the clone's tree matches the attached image plus the nine agreed files and nothing else, no `.env` is present, and both database files are there. Then built a fresh virtualenv in the clone, installed `requirements.txt` cleanly, spawned the MCP server over its relative paths (20 tools, real data), and started the FastAPI backend, which answered `/api/health` with `{"ok": true, "mcp_tools": 20}` and served the ticket list. The clone test directory was removed afterwards.
+
+The committed `README.md` already covered all five points asked for: copying `data/campus_customs.db` over `data/campus_customs_new.db` for a clean run, starting the MCP server, starting the FastAPI backend from `backend/` on port 8000, starting the React board on 5173, and resetting before a full three-ticket run.
