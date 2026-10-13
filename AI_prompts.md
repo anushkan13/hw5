@@ -376,3 +376,27 @@ Wrote `output/design.md` covering the room metaphor, how the five agents are dis
 Re-verified afterwards: the Problem 6 Expected blocks are still 25/25 intact, all five tabs are filled, no placeholders and no "coming later" notes remain, and the Cash tab still reconciles to $152.00.
 
 Stopped both dev servers — `uvicorn` on port 8000 and the Vite server on 5173 — killing the whole process in each case rather than just freeing the port, per the project instructions. Both ports confirmed free afterwards, with no stray `vite` or `npm run dev` processes. The one remaining `mcp_server/server.py` process is this Claude Code session's own `campus-customs` connection, not a leak from the app. The working database is untouched by the shutdown.
+
+---
+
+## Problem 11: Submit to GitHub
+
+### Prompt 1 (initial)
+
+> Problem 11: Submit to GitHub
+>
+> Push this project to a new public GitHub repo so graders can clone and run it. Match the file layout in the screenshot I'm attaching. Before pushing: do not commit my real .env, make sure .gitignore ignores .env and my local .claude/ folder, and keep .env.example in the repo; do commit both database files in data/ so graders can run without rebuilding data, fixing .gitignore if it excludes .db files; create output/github_url.txt with the repo URL. Update README.md so a grader can run everything from a fresh clone, with the real commands from this project: copy the original DB over the working copy for a clean run, start the MCP server, start the FastAPI backend on port 8000, start the React board, and reset the DB before a full three-ticket run. After pushing, give me the repo URL and confirm my real .env is not in the repo and both data/ files are.
+
+**Outcome:** Pushed to **https://github.com/anushkan13/hw5** (public, 56 files). Wrote `.env.example`, a rewritten `.gitignore`, a full `README.md`, and `output/github_url.txt`.
+
+**Three portability problems found and fixed, because without them a grader could not run the project at all:**
+
+1. **`mcp.json` and `.mcp.json` hardcoded `/Users/anushkanair/...`** for both the interpreter and the server script. Changed to paths relative to the project root, with `backend/shop.py` and `backend/team.py` resolving them against that root and pinning the subprocess `cwd`, since the backend is started from `backend/`.
+2. **`.env` was read from outside the project** (`HW5_DIR.parent`), so a clone had nowhere to put the key that `.env.example` describes. Now the project root is checked first and the parent second, which keeps the existing local setup working and makes a clone work too.
+3. **A fresh `pip install -r requirements.txt` failed outright.** Unpinned installs pulled a newer `cryptography` with no wheel for this platform, so pip fell back to a Rust source build and died. Pinned every dependency to the verified versions and added a pip upgrade step to the README.
+
+**Verified by actually cloning the published repo** into a temp directory, building a venv, installing from the pinned requirements, copying the pristine database over the working copy, and running both the MCP server (20 tools, cash $3,400.00, all three tickets `open`, payment gate correctly refusing with `no_human_approval`) and the FastAPI backend (`/api/health`, `/api/cash`, `/api/tickets` all responding). Every command in the README was run before being written down.
+
+**Confirmed against the remote tree, not just the local one:** no `.env` anywhere in the repo, `.env.example` present, no `.claude/` files, and both `data/campus_customs.db` (53,248 bytes) and `data/campus_customs_new.db` (73,728 bytes) published.
+
+**Two deviations from the screenshot, both deliberate.** The screenshot is abbreviated — it shows `frontend/` with no children at all — so it was treated as the intended top-level organisation rather than an exhaustive file list. The repo additionally contains the files the project cannot run without (`backend/team.py`, `shop.py`, `audit.py`, `run_team.py`, `mcp_server/approve_cli.py`, `mcp.json` alongside `.mcp.json`, and `output/screens/` which `resolved_board.html` links to). `output/day_plan.json`, a stale artifact from Problem 5 that is not in the screenshot, was untracked but left on disk.
